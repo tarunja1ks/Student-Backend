@@ -192,6 +192,7 @@ class User(db.Model):
         db.session.delete(self)
         db.session.commit()
         return None
+    
 
 
 """Database Creation and Testing """

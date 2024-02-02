@@ -30,17 +30,13 @@ class UserAPI:
         
         @token_required
         def delete(self, current_user):
-            body = request.get_json()
-            uid = body.get('uid')
+            # body = request.get_json()
             token = request.cookies.get("jwt")
             cur_user= data=jwt.decode(token, current_app.config["SECRET_KEY"], algorithms=["HS256"])['_uid']
             users = User.query.all()
             for user in users:
-                if user.uid == uid and user.id==cur_user: # modified with the and user.id==cur_user so random users can't delete other ppl
+                if user.uid==cur_user: # modified with the and user.id==cur_user so random users can't delete other ppl
                     user.delete()
-                elif(user.uid == uid):
-                    print(cur_user," tried to delete someone who they are not")
-                    return 
             return jsonify(user.read())
 
         def post(self): # Create method

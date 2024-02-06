@@ -88,6 +88,7 @@ class User(db.Model):
         self._uid = uid
         self.set_password(password)
         self._dob = dob
+        
 
     # a name getter method, extracts name from object
     @property
@@ -169,7 +170,6 @@ class User(db.Model):
             "name": self.name,
             "uid": self.uid,
             "dob": self.dob,
-            "age": self.age,
             "posts": [post.read() for post in self.posts]
         }
 

@@ -30,12 +30,11 @@ class UserAPI:
         
         @token_required
         def delete(self, current_user):
-            # body = request.get_json()
-            token = request.cookies.get("jwt")
-            cur_user= data=jwt.decode(token, current_app.config["SECRET_KEY"], algorithms=["HS256"])['_uid']
+            body = request.get_json()
+            uid = body.get('uid')
             users = User.query.all()
             for user in users:
-                if user.uid==cur_user: # modified with the and user.id==cur_user so random users can't delete other ppl
+                if user.uid == uid:
                     user.delete()
             return jsonify(user.read())
 
